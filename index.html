@@ -135,7 +135,6 @@
             display: none;
         }
         
-        /* Stili per la pagina segreta sbloccabile */
         .timer-box {
             font-size: 24px;
             color: #e74c3c;
@@ -203,13 +202,11 @@
     <div id="page-elenco" class="container page">
         <h1>📜 Archivio Segreto Domande</h1>
         
-        <!-- Schermata Bloccata (Timer) -->
         <div id="bloccoTimer">
             <p>Per non rovinarti la sorpresa, l'elenco completo delle parole chiave si sbloccherà dopo che avrai esplorato il gioco per 5 minuti!</p>
             <div class="timer-box" id="timerVisualizzato">Tempo rimasto: 05:00</div>
         </div>
 
-        <!-- Schermata Sbloccata (Lista Parole) -->
         <div id="contenutoSbloccato" style="display: none;">
             <p style="color: #2ecc71; font-weight: bold; font-size: 20px;">🔓 ACCESSO CONSENTITO! Elenco sbloccato.</p>
             <p>Includi una di queste parole nelle tue domande per attivare risposte specifiche della Stupid IA:</p>
@@ -260,7 +257,8 @@
             { t: "Chi ha scritto la Divina Commedia?", b: "📚 Divina Commedia" }
         ];
 
-        // Lista ordinata di tutte le parole chiave utilizzabili nel gioco
         const paroleDisponibili = [
             "2+2", "acqua", "albero", "alieni", "america", "auto", "barba", "beatrice", "blu", "buio", 
             "calcio", "caldo", "cane", "cani", "capelli", "capitale", "casa", "cervello", "cielo", "cinema", 
+            "città", "compiti", "computer", "dante", "denti", "dentista", "dinosauri", "dipinto", "dormire", "esame", 
+            "estinti", "euro", "filme", "fiore", "francia", "fuoco", "gatti", "gatto", "geografia", "ghiaccio", 
