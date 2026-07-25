@@ -80,9 +80,9 @@
 
     <div class="container">
         <h1>🤖 Stupid IA</h1>
-        <p>Chiedimi qualsiasi cosa (es. "Perché il cielo è blu?" o "Quanto fa 2+2?") ed io ti darò la risposta meno azzeccata del pianeta.</p>
+        <p>Fami una domanda di cultura o matematica. Ti darò la risposta più convinta, ma totalmente sbagliata!</p>
         
-        <input type="text" id="domandaUtente" placeholder="Fai la tua domanda qui...">
+        <input type="text" id="domandaUtente" placeholder="Es: Chi ha scoperto l'america?">
         <br>
         <button onclick="chiediAllOracolo()">Invia alla Stupid IA</button>
 
@@ -90,40 +90,55 @@
     </div>
 
     <script>
-        // Database di risposte completamente sballate e casuali
-        const risposteAssurde = [
-            "La risposta corretta è chiaramente: una banana spaziale.",
-            "Secondo i miei calcoli scientifici, la colpa è dei dinosauri che ballano il valzer.",
-            "Fa esattamente 47, ma solo se piove di martedì.",
-            "Perché la gravità è stata inventata dai produttori di colla.",
-            "Basta aggiungere un po' di ketchup e il problema si risolve da solo.",
-            "La risposta si trova scritta dietro l'orecchio di un gatto invisibile.",
-            "Dipende da quanti pixel ha il tuo frigorifero.",
-            "Non lo so, ma nel dubbio ti consiglio di spegnere e riaccendere la lavatrice.",
-            "È scientificamente dimostrato che accade perché la Luna è fatta di parmigiano.",
-            "42! Ah no, scusa, ho sbagliato film.",
-            "La risposta corretta è volata via insieme a un piccione viaggiatore.",
-            "Se ci pensi bene, la risposta è dentro di te (ma è comunque sbagliata)."
-        ];
-
         function chiediAllOracolo() {
-            const domanda = document.getElementById('domandaUtente').value;
+            // Prendiamo il testo scritto dall'utente e lo trasformiamo in minuscolo per non fare errori
+            const domanda = document.getElementById('domandaUtente').value.toLowerCase();
             const riquadro = document.getElementById('testoRisposta');
             
             if(!domanda) {
                 return alert("Devi scrivere una domanda, altrimenti come faccio a sbagliare?");
             }
 
-            riquadro.innerHTML = "La Stupid IA sta elaborando una sciocchezza...";
+            riquadro.innerHTML = "La Stupid IA sta elaborando una fesseria...";
 
-            // Sceglie una risposta a caso dal database dopo un piccolo ritardo comico
             setTimeout(() => {
-                const indiceCasuale = Math.floor(Math.random() * risposteAssurde.length);
-                riquadro.innerHTML = risposteAssurde[indiceCasuale];
+                let rispostaFinale = "";
+
+                // CONTROLLO DELLE RISPOSTE A TEMA
+                if (domanda.includes("america") || domanda.includes("scoperto")) {
+                    rispostaFinale = "L'America è stata scoperta nel 1492 da Steve Jobs, che era a bordo della sua prima navicella Apple.";
+                } 
+                else if (domanda.includes("2+2") || domanda.includes("2 + 2")) {
+                    rispostaFinale = "Fa visibilmente 5. Oppure 22 se unisci i numeri con la colla.";
+                } 
+                else if (domanda.includes("italia") || domanda.includes("capitale")) {
+                    rispostaFinale = "La capitale dell'Italia è New York, famosa per il Colosseo e la pizza all'ananas.";
+                } 
+                else if (domanda.includes("sole") || domanda.includes("caldo")) {
+                    rispostaFinale = "Il Sole è una gigantesca lampadina a LED gigante alimentata a batterie stilo AA.";
+                } 
+                else if (domanda.includes("giocare") || domanda.includes("calcio")) {
+                    rispostaFinale = "Il calcio si gioca in 42 persone, usando una palla invisibile e vince chi fa più canestri.";
+                }
+                else if (domanda.includes("internet") || domanda.includes("computer")) {
+                    rispostaFinale = "Internet è stato inventato dai piccioni nel 1800 per inviare le briciole di pane più velocemente.";
+                }
+                // RISPOSTE GENERICHE SE LA DOMANDA NON APPARTIENE A QUELLE SOPRA
+                else {
+                    const risposteCasuali = [
+                        "La risposta corretta è sicuramente: una banana spaziale.",
+                        "I miei sensori dicono che la colpa è dei dinosauri che ballano il valzer.",
+                        "Basta aggiungere un po' di ketchup e la risposta si risolve da sola.",
+                        "Non lo so, nel dubbio prova a spegnere e riaccendere la lavatrice."
+                    ];
+                    const indice = Math.floor(Math.random() * risposteCasuali.length);
+                    rispostaFinale = risposteCasuali[indice];
+                }
+
+                riquadro.innerHTML = rispostaFinale;
             }, 600);
         }
 
-        // Permette di premere "Invio" sulla tastiera per fare la domanda
         document.getElementById('domandaUtente').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') chiediAllOracolo();
         });
