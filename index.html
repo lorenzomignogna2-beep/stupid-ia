@@ -1,263 +1,630 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stupid IA Sbloccata</title>
-    <style>
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            text-align: center;
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
-            margin: 0;
-        }
-        .experimental-badge {
-            background-color: #e67e22;
-            color: white;
-            display: inline-block;
-            padding: 6px 14px;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 20px;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-        }
-        .nav-tabs {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        .tab-btn {
-            background-color: #7f8c8d;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .tab-btn.active {
-            background-color: #2ecc71;
-        }
-        .container {
-            max-width: 650px;
-            background: #34495e;
-            padding: 30px;
-            margin: 20px auto;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            border: 3px solid #e74c3c;
-        }
-        .page {
-            display: none;
-        }
-        .page.active {
-            display: block;
-        }
-        input, textarea {
-            width: 85%;
-            padding: 15px;
-            font-size: 18px;
-            border: 2px solid #bdc3c7;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            outline: none;
-            color: #333;
-            font-family: sans-serif;
-        }
-        textarea {
-            height: 100px;
-            resize: none;
-        }
-        button.main-btn {
-            padding: 15px 30px;
-            font-size: 18px;
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.2s;
-            margin-bottom: 20px;
-        }
-        button.main-btn:hover {
-            background-color: #c0392b;
-            transform: scale(1.05);
-        }
-        .suggerimenti {
-            margin: 15px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        .suggerimento-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 14px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .suggerimento-btn:hover {
-            background-color: #2980b9;
-        }
-        .box-risposta {
-            margin-top: 30px;
-            padding: 20px;
-            background: #2c3e50;
-            border-radius: 8px;
-            border-left: 5px solid #f1c40f;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: bold;
-            color: #f1c40f;
-            line-height: 1.4;
-        }
-        .feedback-message {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #27ae60;
-            color: white;
-            border-radius: 8px;
-            font-weight: bold;
-            display: none;
-        }
-        .timer-box {
-            font-size: 24px;
-            color: #e74c3c;
-            background: #2c3e50;
-            padding: 15px;
-            border-radius: 8px;
-            border: 2px dashed #e74c3c;
-            margin: 20px 0;
-        }
-        .elenco-tag {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .tag-item {
-            background: #2c3e50;
-            padding: 6px 12px;
-            border-radius: 4px;
-            border-bottom: 3px solid #3498db;
-            font-size: 14px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stupid IA 🤖</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: #1e272e;
+    color: white;
+    font-family: "Comic Sans MS", cursive;
+    text-align: center;
+}
+
+h1 {
+    color: #f1c40f;
+    font-size: 40px;
+}
+
+.experimental {
+    display: inline-block;
+    background: #e67e22;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.menu {
+    margin: 20px;
+}
+
+.menu button {
+    background: #34495e;
+    color: white;
+    border: 0;
+    padding: 12px 18px;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.menu button:hover,
+.menu button.active {
+    background: #2ecc71;
+}
+
+.box {
+    max-width: 700px;
+    margin: auto;
+    background: #2f3640;
+    padding: 30px;
+    border-radius: 20px;
+    border: 3px solid #e74c3c;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+input, textarea {
+    width: 90%;
+    padding: 15px;
+    font-size: 18px;
+    margin: 10px;
+    border-radius: 10px;
+    border: none;
+}
+
+textarea {
+    height: 120px;
+}
+
+.main {
+    background: #e74c3c;
+    color:white;
+    border:0;
+    padding:15px 25px;
+    border-radius:10px;
+    font-size:18px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.main:hover {
+    transform:scale(1.05);
+}
+
+.risposta {
+    margin-top:25px;
+    background:#1e272e;
+    border-left:6px solid #f1c40f;
+    padding:25px;
+    border-radius:10px;
+    font-size:24px;
+    color:#f1c40f;
+    min-height:80px;
+}
+
+.suggerimenti button {
+    background:#3498db;
+    color:white;
+    border:0;
+    padding:10px;
+    margin:5px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.timer {
+    font-size:30px;
+    color:#e74c3c;
+    margin:20px;
+}
+
+.tag {
+    display:inline-block;
+    background:#34495e;
+    padding:8px;
+    margin:5px;
+    border-radius:8px;
+    border-bottom:3px solid #3498db;
+}
+
+.successo {
+    background:#27ae60;
+    padding:15px;
+    border-radius:10px;
+    display:none;
+}
+
+</style>
 </head>
+
+
 <body>
 
-    <div class="experimental-badge">🛠️ Sito in fase sperimentale</div>
+<div class="experimental">
+🛠️ Sito sperimentale
+</div>
 
-    <div class="nav-tabs">
-        <button id="btn-ia" class="tab-btn active" onclick="switchPage('ia')">🤖 Stupid IA</button>
-        <button id="btn-consigli" class="tab-btn" onclick="switchPage('consigli')">💡 Consiglia Domande</button>
-        <button id="btn-elenco" class="tab-btn" onclick="switchPage('elenco')">🔒 Elenco Domande</button>
-    </div>
 
-    <!-- PAGINA 1: LA STUPID IA -->
-    <div id="page-ia" class="container page active">
-        <h1>🤖 Stupid IA</h1>
-        <p>Fammi una domanda di qualsiasi tipo. Ti darò la risposta più convinta, ma totalmente sbagliata!</p>
-        
-        <input type="text" id="domandaUtente" placeholder="Scrivi una domanda o clicca su un suggerimento...">
-        <br>
-        <button onclick="chiediAllOracolo()" class="main-btn">Invia alla Stupid IA</button>
+<div class="menu">
 
-        <p style="font-size: 14px; color: #bdc3c7; margin-bottom: 5px;">Suggerimenti casuali (ricarica la pagina per cambiarli):</p>
-        <div class="suggerimenti" id="contenitoreSuggerimenti"></div>
+<button class="active" onclick="pagina('ia')">
+🤖 Stupid IA
+</button>
 
-        <div class="box-risposta" id="testoRisposta">In attesa della tua domanda...</div>
-    </div>
+<button onclick="pagina('consigli')">
+💡 Consigli
+</button>
 
-    <!-- PAGINA 2: CONSIGLI UTENTI -->
-    <div id="page-consigli" class="container page">
-        <h1>💡 Consiglia una Domanda</h1>
-        <p>Manca qualcosa nel nostro enorme repertorio? Suggerisci una domanda e la risposta sbagliata associata!</p>
-        
-        <input type="text" id="nuovaDomanda" placeholder="Scrivi la tua domanda da aggiungere...">
-        <textarea id="nuovaRisposta" placeholder="Scrivi la risposta sbagliata e divertente..."></textarea>
-        <br>
-        <button onclick="inviaConsiglio()" class="main-btn" style="background-color: #2ecc71;">Invia Consiglio</button>
+<button onclick="pagina('archivio')">
+🔒 Archivio
+</button>
 
-        <div id="msgSuccesso" class="feedback-message">✔️ Grazie! Il tuo consiglio è stato memorizzato temporaneamente nel browser!</div>
-    </div>
+</div>
 
-    <!-- PAGINA 3: ELENCO SBLOCCABILE -->
-    <div id="page-elenco" class="container page">
-        <h1>📜 Archivio Segreto Domande</h1>
-        
-        <div id="bloccoTimer">
-            <p>Per non rovinarti la sorpresa, l'elenco completo delle parole chiave si sbloccherà dopo che avrai esplorato il gioco per 5 minuti!</p>
-            <div class="timer-box" id="timerVisualizzato">Tempo rimasto: 05:00</div>
-        </div>
 
-        <div id="contenutoSbloccato" style="display: none;">
-            <p style="color: #2ecc71; font-weight: bold; font-size: 20px;">🔓 ACCESSO CONSENTITO! Elenco sbloccato.</p>
-            <p>Includi una di queste parole nelle tue domande per attivare risposte specifiche della Stupid IA:</p>
-            <div class="elenco-tag" id="listaTag"></div>
-        </div>
-    </div>
 
-    <script>
-        function switchPage(pageName) {
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            if (pageName === 'ia') {
-                document.getElementById('page-ia').classList.add('active');
-                document.getElementById('btn-ia').classList.add('active');
-            } else if (pageName === 'consigli') {
-                document.getElementById('page-consigli').classList.add('active');
-                document.getElementById('btn-consigli').classList.add('active');
-            } else {
-                document.getElementById('page-elenco').classList.add('active');
-                document.getElementById('btn-elenco').classList.add('active');
-            }
-        }
+<div id="ia" class="box page active">
 
-        function usaSuggerimento(testoDomanda) {
-            document.getElementById('domandaUtente').value = testoDomanda;
-            switchPage('ia');
-            chiediAllOracolo();
-        }
+<h1>🤖 Stupid IA</h1>
 
-        function inviaConsiglio() {
-            const dom = document.getElementById('nuovaDomanda').value;
-            const ris = document.getElementById('nuovaRisposta').value;
-            if(!dom || !ris) return alert("Riempi sia la domanda che la risposta!");
-            document.getElementById('msgSuccesso').style.display = 'block';
-            document.getElementById('nuovaDomanda').value = '';
-            document.getElementById('nuovaRisposta').value = '';
-            setTimeout(() => { document.getElementById('msgSuccesso').style.display = 'none'; }, 4000);
-        }
+<p>
+Fai una domanda.
+Riceverai una risposta totalmente sbagliata,
+ma detta con assoluta sicurezza.
+</p>
 
-        const opzioniSuggeriti = [
-            { t: "Chi ha scoperto l'America?", b: "🗺️ Scoperta America" },
-            { t: "Chi ha dipinto la Gioconda?", b: "🎨 Pittore Gioconda" },
-            { t: "Perché la torre di Pisa è storta?", b: "🇮🇹 Torre di Pisa" },
-            { t: "Gli alieni esistono?", b: "👽 Gli Alieni" },
-            { t: "Chi ha inventato i dinosauri?", b: "🦖 Fine Dinosauri" },
-            { t: "Qual è la capitale della Francia?", b: "🗼 Capitale Francia" },
-            { t: "Perché i gatti fanno le fusa?", b: "🐱 Fusa dei Gatti" },
-            { t: "Chi ha scritto la Divina Commedia?", b: "📚 Divina Commedia" }
-        ];
 
-        const paroleDisponibili = [
-            "2+2", "acqua", "albero", "alieni", "america", "auto", "barba", "beatrice", "blu", "buio", 
-            "calcio", "caldo", "cane", "cani", "capelli", "capitale", "casa", "cervello", "cielo", "cinema", 
-            "città", "compiti", "computer", "dante", "denti", "dentista", "dinosauri", "dipinto", "dormire", "esame", 
-            "estinti", "euro", "film", "fiore", "francia", "fuoco", "gatti", "gatto", "geografia", "ghiaccio", 
+<input id="domanda" placeholder="Scrivi una domanda...">
+
+<br>
+
+<button class="main" onclick="rispondi()">
+Invia alla Stupid IA
+</button>
+
+
+<div>
+<h3>Suggerimenti:</h3>
+<div id="suggerimenti" class="suggerimenti"></div>
+</div>
+
+
+<div id="risposta" class="risposta">
+Sto aspettando una domanda...
+</div>
+
+
+</div>
+
+
+
+
+<div id="consigli" class="box page">
+
+<h1>💡 Consiglia</h1>
+
+<p>
+Aggiungi una nuova domanda stupida.
+</p>
+
+
+<input id="nuovaDomanda"
+placeholder="Domanda">
+
+
+<textarea id="nuovaRisposta"
+placeholder="Risposta assurda"></textarea>
+
+
+<br>
+
+<button class="main" onclick="salvaConsiglio()">
+Salva
+</button>
+
+
+<div id="salvato" class="successo">
+✅ Salvato nel browser!
+</div>
+
+
+</div>
+
+
+
+
+
+<div id="archivio" class="box page">
+
+<h1>📜 Archivio Segreto</h1>
+
+
+<p>
+L'elenco delle parole magiche si sblocca dopo 5 minuti.
+</p>
+
+
+<div class="timer" id="timer">
+05:00
+</div>
+
+
+<div id="lista" style="display:none">
+
+<h2>
+🔓 Archivio sbloccato!
+</h2>
+
+
+<div id="parole"></div>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+function pagina(nome){
+
+document.querySelectorAll(".page")
+.forEach(x=>x.classList.remove("active"));
+
+document.getElementById(nome)
+.classList.add("active");
+
+
+document.querySelectorAll(".menu button")
+.forEach(x=>x.classList.remove("active"));
+
+event.target.classList.add("active");
+
+}
+
+
+
+const risposte = {
+
+
+"gatto":[
+"Il gatto fa le fusa perché sta caricando la batteria interna.",
+"I gatti dormono 16 ore perché stanno aggiornando Windows.",
+"Il gatto è un piccolo leone con problemi di WiFi."
+],
+
+
+"dinosauri":[
+"I dinosauri sono spariti perché hanno perso una gara di nascondino.",
+"I dinosauri si sono estinti perché nessuno li invitava alle feste.",
+"Il T-Rex aveva le braccine per risparmiare plastica."
+],
+
+
+"america":[
+"L'America è stata scoperta da un navigatore Google Maps.",
+"Cristoforo Colombo cercava un supermercato.",
+"L'America era nascosta dietro il divano."
+],
+
+
+"francia":[
+"La capitale della Francia è Pizza.",
+"Parigi è famosa perché le torri fanno selfie.",
+"La Francia è stata inventata dai francesi."
+],
+
+
+"computer":[
+"Il computer funziona grazie ai piccoli criceti digitali.",
+"Il computer si spegne quando ha sonno.",
+"La tastiera mangia le lettere durante la notte."
+]
+
+};
+
+
+
+const generiche = [
+
+"Perché me lo chiedi? Io sto ancora cercando il manuale del cervello.",
+
+"Risposta confermata: sicuramente no. O forse sì. Boh.",
+
+"Ho fatto un calcolo complicatissimo e ho ottenuto una patata.",
+
+"Secondo gli esperti inesistenti, la risposta è banana.",
+
+"Questa domanda è troppo intelligente per me. Quindi dico pizza.",
+
+"Ho consultato 300 scimmie e hanno scelto questa risposta.",
+
+"La risposta corretta è nascosta dentro un biscotto della fortuna."
+
+];
+
+
+
+const suggerimenti = [
+
+"Chi ha scoperto l'America?",
+
+"Perché i gatti fanno le fusa?",
+
+"Perché sono spariti i dinosauri?",
+
+"Qual è la capitale della Francia?",
+
+"Come funziona un computer?"
+
+];
+function rispondi(){
+
+let domanda = document
+.getElementById("domanda")
+.value
+.toLowerCase();
+
+let risposta = "";
+
+let trovata = false;
+
+for(let parola in risposte){
+
+    if(domanda.includes(parola)){
+
+        let lista = risposte[parola];
+
+        risposta =
+        lista[Math.floor(Math.random()*lista.length)];
+
+        trovata = true;
+        break;
+
+    }
+
+}
+
+if(!trovata){
+
+    risposta =
+    generiche[
+    Math.floor(Math.random()*generiche.length)
+    ];
+
+}
+
+document
+.getElementById("risposta")
+.innerHTML =
+"🤖 " + risposta;
+
+}
+
+
+function caricaSuggerimenti(){
+
+let contenitore =
+document.getElementById("suggerimenti");
+
+contenitore.innerHTML="";
+
+let copia=[...suggerimenti];
+
+copia.sort(()=>Math.random()-0.5);
+
+for(let i=0;i<3;i++){
+
+let bottone =
+document.createElement("button");
+
+bottone.innerHTML =
+copia[i];
+
+bottone.onclick=function(){
+
+document.getElementById("domanda").value=copia[i];
+
+rispondi();
+
+};
+
+contenitore.appendChild(bottone);
+
+}
+
+}
+
+caricaSuggerimenti();
+
+
+
+function salvaConsiglio(){
+
+let d =
+document.getElementById("nuovaDomanda")
+.value;
+
+let r =
+document.getElementById("nuovaRisposta")
+.value;
+
+if(!d || !r){
+
+alert("Inserisci domanda e risposta!");
+
+return;
+
+}
+
+let dati =
+JSON.parse(
+localStorage.getItem("consigliStupid")
+|| "[]"
+);
+
+dati.push({
+domanda:d,
+risposta:r
+});
+
+localStorage.setItem(
+"consigliStupid",
+JSON.stringify(dati)
+);
+
+document
+.getElementById("salvato")
+.style.display="block";
+
+setTimeout(()=>{
+
+document
+.getElementById("salvato")
+.style.display="none";
+
+},3000);
+
+document.getElementById("nuovaDomanda").value="";
+document.getElementById("nuovaRisposta").value="";
+
+}
+
+
+
+const paroleSegrete=[
+
+"gatto",
+"cane",
+"dinosauri",
+"america",
+"francia",
+"computer",
+"pizza",
+"spazio",
+"alieni",
+"scuola",
+"calcio",
+"telefono",
+"robot",
+"gelato",
+"mare",
+"fuoco",
+"acqua"
+
+];
+
+
+let tempoTotale = 300;
+
+
+function aggiornaTimer(){
+
+let salvato =
+localStorage.getItem("inizioTimer");
+
+if(!salvato){
+
+localStorage.setItem(
+"inizioTimer",
+Date.now()
+);
+
+salvato=Date.now();
+
+}
+
+let passato =
+Math.floor(
+(Date.now()-salvato)/1000
+);
+
+let rimanente =
+tempoTotale-passato;
+
+if(rimanente<=0){
+
+sbloccaArchivio();
+
+return;
+
+}
+
+let minuti =
+Math.floor(rimanente/60);
+
+let secondi =
+rimanente%60;
+
+
+document.getElementById("timer")
+.innerHTML =
+
+String(minuti).padStart(2,"0")
++
+":"
++
+String(secondi).padStart(2,"0");
+
+}
+
+
+setInterval(
+aggiornaTimer,
+1000
+);
+
+aggiornaTimer();
+
+
+
+function sbloccaArchivio(){
+
+document
+.getElementById("timer")
+.innerHTML =
+"🔓 SBLOCCATO!";
+
+
+document
+.getElementById("lista")
+.style.display="block";
+
+
+let area =
+document.getElementById("parole");
+
+
+area.innerHTML="";
+
+
+paroleSegrete.forEach(p=>{
+
+let tag =
+document.createElement("span");
+
+tag.className="tag";
+
+tag.innerHTML=p;
+
+area.appendChild(tag);
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
