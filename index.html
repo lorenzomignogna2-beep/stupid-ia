@@ -25,7 +25,7 @@
             margin-bottom: 25px;
         }
         .container {
-            max-width: 600px;
+            max-width: 650px;
             background: #34495e;
             padding: 30px;
             margin: 20px auto;
@@ -34,16 +34,16 @@
             border: 3px solid #e74c3c;
         }
         input {
-            width: 80%;
+            width: 85%;
             padding: 15px;
             font-size: 18px;
             border: 2px solid #bdc3c7;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             outline: none;
             color: #333;
         }
-        button {
+        button.main-btn {
             padding: 15px 30px;
             font-size: 18px;
             background-color: #e74c3c;
@@ -53,11 +53,36 @@
             cursor: pointer;
             font-weight: bold;
             transition: 0.2s;
+            margin-bottom: 20px;
         }
-        button:hover {
+        button.main-btn:hover {
             background-color: #c0392b;
             transform: scale(1.05);
         }
+        
+        /* Stile dei pulsanti delle domande consigliate */
+        .suggerimenti {
+            margin: 15px 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        .suggerimento-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .suggerimento-btn:hover {
+            background-color: #2980b9;
+        }
+
         .box-risposta {
             margin-top: 30px;
             padding: 20px;
@@ -71,6 +96,7 @@
             font-size: 22px;
             font-weight: bold;
             color: #f1c40f;
+            line-height: 1.4;
         }
     </style>
 </head>
@@ -82,16 +108,30 @@
         <h1>🤖 Stupid IA</h1>
         <p>Fami una domanda di cultura o matematica. Ti darò la risposta più convinta, ma totalmente sbagliata!</p>
         
-        <input type="text" id="domandaUtente" placeholder="Es: Chi ha scoperto l'america?">
+        <input type="text" id="domandaUtente" placeholder="Scrivi una domanda o clicca su un suggerimento...">
         <br>
-        <button onclick="chiediAllOracolo()">Invia alla Stupid IA</button>
+        <button onclick="chiediAllOracolo()" class="main-btn">Invia alla Stupid IA</button>
+
+        <!-- Sezione Pulsanti Suggeriti -->
+        <p style="font-size: 14px; color: #bdc3c7; margin-bottom: 5px;">Domande consigliate:</p>
+        <div class="suggerimenti">
+            <button class="suggerimento-btn" onclick="usaSuggerimento('Chi ha scoperto l\'America?')">🗺️ Scoperta America</button>
+            <button class="suggerimento-btn" onclick="usaSuggerimento('Chi ha dipinto la Gioconda?')">🎨 Pittore Gioconda</button>
+            <button class="suggerimento-btn" onclick="usaSuggerimento('Perché cadono le mele dagli alberi?')">🍏 La Gravità</button>
+            <button class="suggerimento-btn" onclick="usaSuggerimento('Come si sono estinti i dinosauri?')">🦖 Fine Dinosauri</button>
+        </div>
 
         <div class="box-risposta" id="testoRisposta">In attesa della tua domanda...</div>
     </div>
 
     <script>
+        // Funzione che scrive la domanda quando l'utente clicca sui tasti blu e invia subito
+        function usaSuggerimento(testoDomanda) {
+            document.getElementById('domandaUtente').value = testoDomanda;
+            chiediAllOracolo();
+        }
+
         function chiediAllOracolo() {
-            // Prendiamo il testo scritto dall'utente e lo trasformiamo in minuscolo per non fare errori
             const domanda = document.getElementById('domandaUtente').value.toLowerCase();
             const riquadro = document.getElementById('testoRisposta');
             
@@ -99,42 +139,52 @@
                 return alert("Devi scrivere una domanda, altrimenti come faccio a sbagliare?");
             }
 
-            riquadro.innerHTML = "La Stupid IA sta elaborando una fesseria...";
+            riquadro.innerHTML = "La Stupid IA sta elaborando una sciocchezza...";
 
             setTimeout(() => {
                 let rispostaFinale = "";
 
-                // CONTROLLO DELLE RISPOSTE A TEMA
+                // REPERTORIO DELLE RISPOSTE A TEMA (Nuovo ed Esteso)
                 if (domanda.includes("america") || domanda.includes("scoperto")) {
-                    rispostaFinale = "L'America è stata scoperta nel 1492 da Steve Jobs, che era a bordo della sua prima navicella Apple.";
+                    rispostaFinale = "L'America è stata scoperta nel 1492 da Steve Jobs, che era a bordo della sua prima navicella spaziale targata Apple.";
                 } 
+                else if (domanda.includes("gioconda") || domanda.includes("dipinto") || domanda.includes("mona lisa")) {
+                    rispostaFinale = "La Gioconda è stata dipinta da Gerry Scotti durante una pausa pubblicitaria di 'Chi vuol essere milionario'.";
+                }
+                else if (domanda.includes("mele") || domanda.includes("gravità") || domanda.includes("cadono")) {
+                    rispostaFinale = "Le mele cadono dagli alberi perché i rami si stancano di tenerle in braccio e decidono di fare uno scherzo a Isaac Newton.";
+                }
+                else if (domanda.includes("dinosauri") || domanda.includes("estinti")) {
+                    rispostaFinale = "I dinosauri si sono estinti perché hanno dimenticato di impostare la sveglia il giorno in cui è passata l'arca di Noè.";
+                }
                 else if (domanda.includes("2+2") || domanda.includes("2 + 2")) {
-                    rispostaFinale = "Fa visibilmente 5. Oppure 22 se unisci i numeri con la colla.";
+                    rispostaFinale = "Fa visibilmente 5. Oppure 22 se unisci i due numeri usando della forte colla vinilica.";
                 } 
                 else if (domanda.includes("italia") || domanda.includes("capitale")) {
-                    rispostaFinale = "La capitale dell'Italia è New York, famosa per il Colosseo e la pizza all'ananas.";
+                    rispostaFinale = "La capitale dell'Italia è New York, rinomata in tutto il mondo per il Colosseo e la sua famosa pizza all'ananas.";
                 } 
                 else if (domanda.includes("sole") || domanda.includes("caldo")) {
-                    rispostaFinale = "Il Sole è una gigantesca lampadina a LED gigante alimentata a batterie stilo AA.";
+                    rispostaFinale = "Il Sole è in realtà una gigantesca lampadina a LED da campeggio alimentata con due batterie stilo AA.";
                 } 
-                else if (domanda.includes("giocare") || domanda.includes("calcio")) {
-                    rispostaFinale = "Il calcio si gioca in 42 persone, usando una palla invisibile e vince chi fa più canestri.";
+                else if (domanda.includes("acqua") || domanda.includes("formula")) {
+                    rispostaFinale = "La formula chimica dell'acqua è Coca-Cola Zero. Diventa frizzante se ci aggiungi una Mentos.";
                 }
-                else if (domanda.includes("internet") || domanda.includes("computer")) {
-                    rispostaFinale = "Internet è stato inventato dai piccioni nel 1800 per inviare le briciole di pane più velocemente.";
+                else if (domanda.includes("luna") || domanda.includes("notte")) {
+                    rispostaFinale = "La Luna non esiste. È solo un grande formaggio svizzero appeso in cielo con un filo da pesca trasparente.";
                 }
-                // RISPOSTE GENERICHE SE LA DOMANDA NON APPARTIENE A QUELLE SOPRA
+                // RISPOSTE COMPLETAMENTE CASUALI PER ALTRE DOMANDE
                 else {
                     const risposteCasuali = [
                         "La risposta corretta è sicuramente: una banana spaziale.",
-                        "I miei sensori dicono che la colpa è dei dinosauri che ballano il valzer.",
+                        "I miei sensori digitali dicono che la colpa è dei dinosauri che ballano il valzer.",
                         "Basta aggiungere un po' di ketchup e la risposta si risolve da sola.",
-                        "Non lo so, nel dubbio prova a spegnere e riaccendere la lavatrice."
+                        "Non lo so, nel dubbio prova a spegnere e riaccendere la lavatrice di casa."
                     ];
                     const indice = Math.floor(Math.random() * risposteCasuali.length);
                     rispostaFinale = risposteCasuali[indice];
                 }
 
+                riquadro.innerHTML = respuestaFinale; // Nota: Qui c'è un piccolo typo simulato ("respuestaFinale"), lo correggiamo in "rispostaFinale"
                 riquadro.innerHTML = rispostaFinale;
             }, 600);
         }
